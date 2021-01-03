@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+jupyter = "*"
+jupyter_contrib_nbextensions = "*"
+jupyter-nbrequirements = "*"
+thoth-report-processing = "*"
+plotly = "*"
+matplotlib = "*"
+kaleido = "*"
+jupyterlab = "*"
+pandas = "*"
+async_timeout = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

@@ -1,3 +1,9 @@
+# Extracted files
+inspections/
+
+# Idea
+.idea/  
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
