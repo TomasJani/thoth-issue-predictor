@@ -22,14 +22,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-          
-      - name: flake8
-        uses: grantmcconnaughey/lintly-flake8-github-action@v1.0
-        with:
-          # The GitHub API token to use for creating PR reviews
-          token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: isort
         uses: isort/isort-action@v0.1.0
@@ -47,3 +39,9 @@ jobs:
         with:
           path: .
           line-length: 79
+
+      - name: flake8
+        uses: grantmcconnaughey/lintly-flake8-github-action@v1.0
+        with:
+          # The GitHub API token to use for creating PR reviews
+          token: 'secret' 
