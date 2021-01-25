@@ -16,6 +16,11 @@ pandas = "*"
 async_timeout = "*"
 
 [dev-packages]
+black = "*"
+isort = "*"
+flake8 = "*"
+pylint = "*"
+black-nb = "*"
 
 [requires]
 python_version = "3.9"
