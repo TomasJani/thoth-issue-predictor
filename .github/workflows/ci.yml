@@ -23,25 +23,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       
-      - name: isort
-        uses: isort/isort-action@v0.1.0
-        with:
-          sortPaths: .
-          configuration: --check-only --diff --line-length 79
-          
-      - name: pylint
-        uses: fylein/python-pylint-github-action@v1
-        with:
-          args: pip3 install -r requirements.txt && pylint thoth_issue_predictor
-
-      - name: black
-        uses: RojerGS/python-black-check@v1.2
-        with:
-          path: .
-          line-length: 79
-
-      - name: flake8
-        uses: grantmcconnaughey/lintly-flake8-github-action@v1.0
-        with:
-          # The GitHub API token to use for creating PR reviews
-          token: 'secret' 
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+        
+    - name: lint
+      run: make lint
