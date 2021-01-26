@@ -23,7 +23,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       
-    - run: apt-get -y install libfuzzy-dev
+    - run: sudo apt-get -y install libfuzzy-dev
       
     - uses: actions/setup-python@v2
       with:
