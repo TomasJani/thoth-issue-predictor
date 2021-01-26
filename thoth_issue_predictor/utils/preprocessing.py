@@ -1,3 +1,5 @@
+""""Utility functions """
+
 from pathlib import Path
 from typing import Any, Dict, Tuple
 
@@ -43,7 +45,9 @@ def prepare_df(file_name):
         inspections_df=inspections_df
     )
 
-    python_packages_dataframe["exit_code"] = inspections_df["exit_code"]
+    python_packages_dataframe["exit_code"] = inspections_df[
+        "exit_code"
+    ].astype("int")
 
     return python_packages_dataframe
 
@@ -72,11 +76,17 @@ def create_python_version_packege_df(
         )
 
     python_packages_versions["python"] = []
-    for index, row in inspections_df[columns_packages].iterrows():
+    for _, row in inspections_df[columns_packages].iterrows():
         python_version = row[
             "requirements_locked___meta__requires__python_version"
         ]
-        python_packages_versions["python"].append(python_version)
+
+        if pd.isnull(python_version):
+            python_packages_versions["python"].append(0)
+        else:
+            python_packages_versions["python"].append(
+                int(python_version.replace(".", ""))
+            )
 
         for package in python_packages_names:
             version = row[
@@ -89,14 +99,18 @@ def create_python_version_packege_df(
                 if package not in python_packages_versions.keys():
                     python_packages_versions[package] = []
 
-                python_packages_versions[package].append("")
+                python_packages_versions[package].append(0)
 
             else:
                 if package not in python_packages_versions.keys():
                     python_packages_versions[package] = []
 
-                python_packages_versions[package].append(
-                    version.replace("==", "")
-                )
+                try:
+                    package_version = float(
+                        version.replace("==", "").replace(".", "")
+                    )
+                except ValueError:
+                    package_version = 0
+                python_packages_versions[package].append(package_version)
 
     return pd.DataFrame(python_packages_versions), python_packages_versions

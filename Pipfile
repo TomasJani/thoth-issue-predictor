@@ -14,6 +14,7 @@ kaleido = "*"
 jupyterlab = "*"
 pandas = "*"
 async_timeout = "*"
+typing-extensions = "*"
 
 [dev-packages]
 black = "*"
@@ -24,3 +25,6 @@ black-nb = "*"
 
 [requires]
 python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true
