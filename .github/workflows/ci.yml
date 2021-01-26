@@ -28,4 +28,6 @@ jobs:
         fetch-depth: 1
         
     - name: lint
-      run: make lint
+      uses: VaultVulp/action-pipenv@v2.0.1
+      with:
+        command: make lint
