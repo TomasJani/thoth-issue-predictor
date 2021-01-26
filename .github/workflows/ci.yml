@@ -23,6 +23,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       
+    - name: checkout
     - uses: actions/checkout@v2
       with:
         fetch-depth: 1
@@ -30,4 +31,6 @@ jobs:
     - name: lint
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
-        command: run make lint
+        command:
+          install 
+          run make lint
