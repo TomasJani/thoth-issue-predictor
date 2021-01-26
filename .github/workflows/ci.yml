@@ -23,7 +23,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     
-    - uses: actions/checkout@v2
+    - name: Checkou repositary
+      uses: actions/checkout@v2
       with:
         fetch-depth: 1
   
@@ -33,7 +34,7 @@ jobs:
         python-version: 3.9
     
     - name: Setup Enviroment
-    - run: sudo apt-get update && sudo apt-get -y install libfuzzy-dev && python3.9 -m pip install pipenv
+      run: sudo apt-get update && sudo apt-get -y install libfuzzy-dev && python3.9 -m pip install pipenv
   
     - name: Install packages
       run: python3.9 -m pipenv install -d
