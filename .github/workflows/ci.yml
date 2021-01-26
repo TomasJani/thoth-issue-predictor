@@ -42,4 +42,4 @@ jobs:
       run: python -m pipenv install -d --pre
         
     - name: lint
-      run: python -m pipenv make lint
+      run: python -m pipenv run make lint
