@@ -32,14 +32,11 @@ jobs:
       with:
         python-version: 3.9
     
-    - run: sudo apt-get update
-      
-    - run: sudo apt-get -y install libfuzzy-dev
+    - name: Setup Enviroment
+    - run: sudo apt-get update && sudo apt-get -y install libfuzzy-dev && python3.9 -m pip install pipenv
+  
+    - name: Install packages
+      run: python3.9 -m pipenv install -d
         
-    - run: python3.9 -m pip install pipenv
-      
-    - name: install
-      run: python3.9 -m pipenv install -d --pre
-        
-    - name: lint
+    - name: Lint
       run: python3.9 -m pipenv run make lint
