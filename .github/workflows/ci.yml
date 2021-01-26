@@ -28,9 +28,12 @@ jobs:
       with:
         fetch-depth: 1
         
+    - name: install
+      uses: VaultVulp/action-pipenv@v2.0.1
+      with:
+        command: install -d
+        
     - name: lint
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
-        command: |
-          install 
-          run make lint
+        command: run make lint
