@@ -1,5 +1,7 @@
 # Thoth Issue Predictor
 
+![Lint](https://github.com/TomasJani/thoth-issue-predictor/workflows/CI/badge.svg)
+
 The goal of this thesis is to create a predictive model that can, based on data aggregated, spot patterns
 causing issues in software stacks and predict which software stacks will likely not work without actually
 running the application. An example of an issue can be a specific version of TensorFlow installed together
