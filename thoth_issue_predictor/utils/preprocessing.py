@@ -52,6 +52,8 @@ def prepare_df(file_name):
     return python_packages_dataframe
 
 
+# pylint: disable=R1260
+# TODO Ignored, will be refactored later
 def create_python_version_packege_df(
     inspections_df: pd.DataFrame,
 ) -> Tuple[pd.DataFrame, Dict[str, Any]]:
@@ -110,7 +112,7 @@ def create_python_version_packege_df(
                         version.replace("==", "").replace(".", "")
                     )
                 except ValueError:
-                    package_version = 0
+                    package_version = 0.0
                 python_packages_versions[package].append(package_version)
 
     return pd.DataFrame(python_packages_versions), python_packages_versions
