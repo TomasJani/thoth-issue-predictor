@@ -15,6 +15,7 @@ jupyterlab = "*"
 pandas = "*"
 async_timeout = "*"
 typing-extensions = "*"
+parver = "*"
 
 [dev-packages]
 black = "*"

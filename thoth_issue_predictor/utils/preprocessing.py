@@ -4,13 +4,15 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 import pandas as pd
+from parver import Version
 from thoth.report_processing.components import AmunInspections
+from thoth.report_processing.utils import extract_zip_file
 
 
 # TODO this is only temporary, create custom method for my DF later
 def prepare_df(file_name):
     # TODO uncomment when files not present
-    # extract_zip_file(file_name)
+    extract_zip_file(file_name)
 
     inspection = AmunInspections()
 
@@ -34,26 +36,11 @@ def prepare_df(file_name):
 
     inspections_df = inspection.create_inspections_dataframe(
         processed_inspection_runs=(
-            processed_inspection_runs | failed_inspection_runs
+                processed_inspection_runs | failed_inspection_runs
         ),
     )
 
-    (
-        python_packages_dataframe,
-        _,
-        python_indexes,
-    ) = create_python_version_packege_df(inspections_df=inspections_df)
-
-    python_packages_dataframe = python_packages_dataframe.loc[
-        (python_packages_dataframe != 0).any(axis=1)
-    ]
-
-    python_packages_dataframe["exit_code"] = inspections_df[
-        "exit_code"
-    ].astype("int")
-
-    return python_packages_dataframe, python_indexes
-
+    return inspections_df
 
 # pylint: disable=R1260
 # TODO Ignored, will be refactored later
@@ -109,27 +96,35 @@ def create_python_version_packege_df(
                 python_indexes.append(index)
 
             if pd.isnull(version):
-                if package not in python_packages_versions.keys():
-                    python_packages_versions[package] = []
+                if f"{package}_major" not in python_packages_versions.keys():
+                    python_packages_versions[f"{package}_major"] = []
+                    python_packages_versions[f"{package}_minor"] = []
+                    python_packages_versions[f"{package}_patch"] = []
                     python_packages_versions[f"{package}_index"] = []
 
-                python_packages_versions[package].append(0)
+                python_packages_versions[f"{package}_major"].append(0)
+                python_packages_versions[f"{package}_minor"].append(0)
+                python_packages_versions[f"{package}_patch"].append(0)
                 python_packages_versions[f"{package}_index"].append(0)
 
             else:
-                if package not in python_packages_versions.keys():
-                    python_packages_versions[package] = []
+                if f"{package}_major" not in python_packages_versions.keys():
+                    python_packages_versions[f"{package}_major"] = []
+                    python_packages_versions[f"{package}_minor"] = []
+                    python_packages_versions[f"{package}_patch"] = []
                     python_packages_versions[f"{package}_index"] = []
 
                 try:
-                    # TODO separate by . and normalize number of ciphers
-                    package_version = int(
-                        version.replace("==", "").replace(".", "")
-                    )
+                    package_version = Version.parse(version.replace("==", "")).normalize()
                 except ValueError:
-                    package_version = 0
+                    package_version = Version.parse("0.0.0")
 
-                python_packages_versions[package].append(package_version)
+                python_packages_versions[f"{package}_major"].append(
+                    package_version.release[0] if len(package_version.release) > 0 else 0)
+                python_packages_versions[f"{package}_minor"].append(
+                    package_version.release[1] if len(package_version.release) > 1 else 0)
+                python_packages_versions[f"{package}_patch"].append(
+                    package_version.release[2] if len(package_version.release) > 2 else 0)
                 python_packages_versions[f"{package}_index"].append(
                     python_indexes.index(index)
                 )
