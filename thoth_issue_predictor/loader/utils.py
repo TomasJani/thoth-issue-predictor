@@ -6,11 +6,11 @@ from typing import Optional, Union
 import requests
 
 
-def _write_to_file(file_path: Path, data: Union[str, dict]):
+def _write_to_file(file_path: Path, data: Union[str, dict, list]):
     dir_name = file_path.parent
     dir_name.mkdir(parents=True, exist_ok=True)
-    with open(file_path, "w") as f:
-        json.dump(data, f, indent=4, sort_keys=True)
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=4, sort_keys=True)
         logging.info("Successfully written data into %s", file_path)
 
 

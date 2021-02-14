@@ -36,14 +36,15 @@ def prepare_df(file_name):
 
     inspections_df = inspection.create_inspections_dataframe(
         processed_inspection_runs=(
-                processed_inspection_runs | failed_inspection_runs
+            processed_inspection_runs | failed_inspection_runs
         ),
     )
 
     return inspections_df
 
-# pylint: disable=R1260
+
 # TODO Ignored, will be refactored later
+# pylint: disable=too-many-branches,too-complex
 def create_python_version_packege_df(
     inspections_df: pd.DataFrame,
 ) -> Tuple[pd.DataFrame, Dict[str, Any], List[str]]:
@@ -115,16 +116,27 @@ def create_python_version_packege_df(
                     python_packages_versions[f"{package}_index"] = []
 
                 try:
-                    package_version = Version.parse(version.replace("==", "")).normalize()
+                    package_version = Version.parse(
+                        version.replace("==", "")
+                    ).normalize()
                 except ValueError:
                     package_version = Version.parse("0.0.0")
 
                 python_packages_versions[f"{package}_major"].append(
-                    package_version.release[0] if len(package_version.release) > 0 else 0)
+                    package_version.release[0]
+                    if len(package_version.release) > 0
+                    else 0
+                )
                 python_packages_versions[f"{package}_minor"].append(
-                    package_version.release[1] if len(package_version.release) > 1 else 0)
+                    package_version.release[1]
+                    if len(package_version.release) > 1
+                    else 0
+                )
                 python_packages_versions[f"{package}_patch"].append(
-                    package_version.release[2] if len(package_version.release) > 2 else 0)
+                    package_version.release[2]
+                    if len(package_version.release) > 2
+                    else 0
+                )
                 python_packages_versions[f"{package}_index"].append(
                     python_indexes.index(index)
                 )
