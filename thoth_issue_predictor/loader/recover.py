@@ -4,6 +4,7 @@ from pathlib import Path
 from time import sleep
 
 from thoth_issue_predictor.loader.config import (
+    AMUN_BATCH,
     AMUN_RESULT,
     AMUN_SPECS,
     AMUN_STATUS,
@@ -68,12 +69,19 @@ def get_result(inspection_id: str, batch_size: int):
 
 
 def recover():
-    id_files = list(Path(ID_DIR).glob("*"))
+    id_files = list(Path(ID_DIR).glob("*.json"))
     id_file = max(id_files)
     with open(id_file, "r") as file:
         data = json.load(file)
 
-    for inspection_id, batch_size in data:
+    for row in data:
+        if isinstance(row, str):
+            inspection_id = row
+            url = AMUN_BATCH.format(id=inspection_id)
+            batch_size = send_get_amun(url).get("batch_size")
+        else:
+            inspection_id, batch_size = row
+
         status = check_status(inspection_id)
         if status == Status.FINISHED:
             get_specification(inspection_id)

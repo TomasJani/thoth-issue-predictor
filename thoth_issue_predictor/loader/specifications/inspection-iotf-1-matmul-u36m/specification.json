@@ -1,18 +1,19 @@
 {
-  "base": "quay.io/thoth-station/s2i-thoth-ubi8-py36",
-  "batch_size": 1,
+  "base": "quay.io/thoth-station/s2i-thoth-ubi8-py36-mkl",
+  "batch_size": 2,
   "build": {
     "requests": {
       "cpu": "1",
-      "memory": "1Gi"
+      "memory": "4Gi"
     }
   },
-  "files": [],
-  "identifier": "tf-conv1d",
-  "packages": [
-    "which",
-    "python3-pip"
+  "environment": [
+    {
+      "name": "OMP_NUM_THREADS",
+      "value": "1"
+    }
   ],
+  "identifier": "iotf-1-matmul-u36m",
   "python_packages": [
     "micropipenv[toml]"
   ],
@@ -203,20 +204,12 @@
           "markers": "python_version < \"3.8\"",
           "version": "==1.7.0"
         },
-        "tensorflow": {
+        "intel-tensorflow": {
           "hashes": [
-            "sha256:267017724a49c367ca5df536e5f6d3d59643eaed946c82233d6b371e62b5ddc8",
-            "sha256:3ee8819732d8594913b7d22ded7b22e48a49aa015050d8dd8464eaa010ba2e41",
-            "sha256:572f69d2d0a3d3d83ebfb2c24e6d73d88b85a09f5da796974ef4a0ad83ff7cde",
-            "sha256:6735486ee9c3cb0807476e2b36ef7a4cd6c597cb24abf496e66b703360e1e54e",
-            "sha256:68ea22aee9c269a6a0c1061c141f1ec1cd1b1be7569390519c1bf4773f434a40",
-            "sha256:784ab8217e4b0eb4d121c28430c6cdc2ce56c02634a9720d84fb30598b338b8c",
-            "sha256:7ed67b47cdf6598a79583de5b57c595493eac2b8b6b3a828f912354716cb8149",
-            "sha256:8f364528f70d895b96a0de36c7c6002644bf4c5df1ee3fbfa775f5cee6571ad7",
-            "sha256:bbcfb04738099bd46822db91584db74703fdddacf4cd0a76acfc5e086956b5ba",
-            "sha256:c332c7fc5cfd54cb86d5da99787c9693e3a924848097c54df1b71ee595a39c93",
-            "sha256:dc5548562308acde7931f040e73d46ae31b398924cf675c3486fd3504e00a4af",
-            "sha256:f5f27528570fc0d7b90668be10c5dfd90d6ceb8fd2ed62d7d679554acb616bfe"
+            "sha256:40340ed77483c17539600041d40b0ec99510f5e562be77db8d7db808cdfae937",
+            "sha256:6400e503e01718fca99d4682e44fae45b181f737399948ab60af271d38baa21e",
+            "sha256:cafa193f779396adf7d25b7a5a672e6e181476680487bf00cd662ebe747bf37c",
+            "sha256:f09c8cc577b2d4e619d26dcd67e97f670e9eeb0e200ada27062b35361d7b5938"
           ],
           "index": "pypi",
           "version": "==2.2.0"
@@ -438,10 +431,11 @@
   },
   "run": {
     "requests": {
-      "cpu": "2",
+      "cpu": "1",
       "memory": "4Gi"
     }
   },
-  "script": "https://raw.githubusercontent.com/thoth-station/performance/master/tensorflow/conv1d.py",
-  "@created": "2020-08-05T10:17:51.779678"
+  "script": "https://raw.githubusercontent.com/thoth-station/performance/master/tensorflow/matmul.py",
+  "upgrade_pip": true,
+  "@created": "2020-08-18T11:17:35.361042"
 }

@@ -38,7 +38,8 @@ def main():
     Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
     Path(ID_DIR).mkdir(parents=True, exist_ok=True)
     responses = sent_specification_requests()
-    inspection_file_path = Path(f"{ID_DIR}/{datetime.now()}")
+    inspection_file_path = Path(f"{ID_DIR}/{datetime.now()}.json")
+    print(responses)
     _write_to_file(inspection_file_path, responses)
 
 
