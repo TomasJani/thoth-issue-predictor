@@ -1,15 +1,17 @@
 """"Utility functions """
 
 from pathlib import Path
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, List, Tuple
 
 import pandas as pd
+from parver import Version
 from thoth.report_processing.components import AmunInspections
 from thoth.report_processing.utils import extract_zip_file
 
 
 # TODO this is only temporary, create custom method for my DF later
 def prepare_df(file_name):
+    # TODO uncomment when files not present
     extract_zip_file(file_name)
 
     inspection = AmunInspections()
@@ -20,9 +22,6 @@ def prepare_df(file_name):
         repo_path=current_path.joinpath("inspections"),
         store_files=[
             "specification",
-            "build_logs",
-            "job_logs",
-            "hardware_info",
             "results",
         ],
     )
@@ -41,22 +40,17 @@ def prepare_df(file_name):
         ),
     )
 
-    python_packages_dataframe, _ = create_python_version_packege_df(
-        inspections_df=inspections_df
-    )
-
-    python_packages_dataframe["exit_code"] = inspections_df[
-        "exit_code"
-    ].astype("int")
-
-    return python_packages_dataframe
+    return inspections_df
 
 
+# TODO Ignored, will be refactored later
+# pylint: disable=too-many-branches,too-complex
 def create_python_version_packege_df(
     inspections_df: pd.DataFrame,
-) -> Tuple[pd.DataFrame, Dict[str, Any]]:
+) -> Tuple[pd.DataFrame, Dict[str, Any], List[str]]:
     python_packages_versions: Dict[str, Any] = {}
     python_packages_names = []
+    python_indexes = ["unknown"]
 
     sws_df = inspections_df[
         [col for col in inspections_df.columns.values if "__index" in col]
@@ -95,22 +89,60 @@ def create_python_version_packege_df(
                 )
             ]
 
-            if pd.isnull(version):
-                if package not in python_packages_versions.keys():
-                    python_packages_versions[package] = []
+            index = row[
+                "".join(["requirements_locked__default__", package, "__index"])
+            ]
 
-                python_packages_versions[package].append(0)
+            if not pd.isnull(index) and (index not in python_indexes):
+                python_indexes.append(index)
+
+            if pd.isnull(version):
+                if f"{package}_major" not in python_packages_versions.keys():
+                    python_packages_versions[f"{package}_major"] = []
+                    python_packages_versions[f"{package}_minor"] = []
+                    python_packages_versions[f"{package}_patch"] = []
+                    python_packages_versions[f"{package}_index"] = []
+
+                python_packages_versions[f"{package}_major"].append(0)
+                python_packages_versions[f"{package}_minor"].append(0)
+                python_packages_versions[f"{package}_patch"].append(0)
+                python_packages_versions[f"{package}_index"].append(0)
 
             else:
-                if package not in python_packages_versions.keys():
-                    python_packages_versions[package] = []
+                if f"{package}_major" not in python_packages_versions.keys():
+                    python_packages_versions[f"{package}_major"] = []
+                    python_packages_versions[f"{package}_minor"] = []
+                    python_packages_versions[f"{package}_patch"] = []
+                    python_packages_versions[f"{package}_index"] = []
 
                 try:
-                    package_version = float(
-                        version.replace("==", "").replace(".", "")
-                    )
+                    package_version = Version.parse(
+                        version.replace("==", "")
+                    ).normalize()
                 except ValueError:
-                    package_version = 0
-                python_packages_versions[package].append(package_version)
+                    package_version = Version.parse("0.0.0")
 
-    return pd.DataFrame(python_packages_versions), python_packages_versions
+                python_packages_versions[f"{package}_major"].append(
+                    package_version.release[0]
+                    if len(package_version.release) > 0
+                    else 0
+                )
+                python_packages_versions[f"{package}_minor"].append(
+                    package_version.release[1]
+                    if len(package_version.release) > 1
+                    else 0
+                )
+                python_packages_versions[f"{package}_patch"].append(
+                    package_version.release[2]
+                    if len(package_version.release) > 2
+                    else 0
+                )
+                python_packages_versions[f"{package}_index"].append(
+                    python_indexes.index(index)
+                )
+
+    return (
+        pd.DataFrame(python_packages_versions),
+        python_packages_versions,
+        python_indexes,
+    )
