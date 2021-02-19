@@ -16,6 +16,7 @@ pandas = "*"
 async_timeout = "*"
 typing-extensions = "*"
 parver = "*"
+pre-commit = "*"
 
 [dev-packages]
 black = "*"
@@ -23,9 +24,11 @@ isort = "*"
 flake8 = "*"
 pylint = "*"
 black-nb = "*"
+pre-commit = "*"
+check-manifest = "*"
 
 [requires]
-python_version = "3.9"
+python_version = "3.8"
 
 [pipenv]
 allow_prereleases = true
