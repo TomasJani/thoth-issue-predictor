@@ -16,7 +16,7 @@ pandas = "*"
 async_timeout = "*"
 typing-extensions = "*"
 parver = "*"
-pre-commit = "*"
+graphviz = "*"
 
 [dev-packages]
 black = "*"

@@ -49,4 +49,4 @@ jobs:
       run: python3.9 -m pipenv run make flake8-ci
 
     - name: Pre-Commit
-      run: python3.9 -m pipenv run pre-commit run --all-file
+      run: python3.9 -m pipenv run make precommit

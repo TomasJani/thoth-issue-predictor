@@ -6,14 +6,13 @@ from typing import Any, Dict, List, Tuple
 import pandas as pd
 from parver import Version
 from thoth.report_processing.components import AmunInspections
-from thoth.report_processing.utils import extract_zip_file
 
 
 # TODO this is only temporary, create custom method for my DF later
 def prepare_df(file_name):
     """Assemble issue DF with all data from inspections."""
     # TODO uncomment when files not present
-    extract_zip_file(file_name)
+    # extract_zip_file(file_name)
 
     inspection = AmunInspections()
 
@@ -36,7 +35,10 @@ def prepare_df(file_name):
     )
 
     inspections_df = inspection.create_inspections_dataframe(
-        processed_inspection_runs=(processed_inspection_runs | failed_inspection_runs),
+        processed_inspection_runs={
+            **processed_inspection_runs,
+            **failed_inspection_runs,
+        },
     )
 
     return inspections_df

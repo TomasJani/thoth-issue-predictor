@@ -1,4 +1,4 @@
-.PHONY: format lint
+.PHONY: format lint precommit
 
 format:
 	black .
@@ -8,6 +8,10 @@ format:
 lint: format
 	flake8 .
 	#pylint thoth_issue_predictor
+
+precommit:
+	pre-commit run --all-files
+	pre-commit run --all-files
 
 .DEFAULT_GOAL := lint
 
@@ -22,3 +26,6 @@ isort-ci:
 
 flake8-ci:
 	flake8 .
+
+aicoe-ci:
+	precommit

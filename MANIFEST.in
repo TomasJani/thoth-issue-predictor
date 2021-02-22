@@ -10,6 +10,7 @@ recursive-include thoth_issue_predictor *.zip
 
 exclude .flake8
 exclude .pylintrc
+exclude thoth_issue_predictor/notebooks/ThothIssuePredictor*
 recursive-exclude thoth_issue_predictor/loader/inspections *
 recursive-exclude thoth_issue_predictor *.pyc
 recursive-exclude thoth_issue_predictor/notebooks/inspections *
