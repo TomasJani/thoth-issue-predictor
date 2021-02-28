@@ -1,8 +1,9 @@
+"""Helper for loading and retrieving inspections."""
 import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional, Tuple
 
 from thoth_issue_predictor.loader.config import (
     AMUN_API,
@@ -10,12 +11,13 @@ from thoth_issue_predictor.loader.config import (
     OUTPUT_DIR,
     SPECIFICATION_DIR,
 )
-from thoth_issue_predictor.loader.utils import _write_to_file, send_post_amun
+from thoth_issue_predictor.loader.utils import _write_to_file, post_parsed
 
 logging.basicConfig(level=logging.INFO)
 
 
-def sent_specification_requests() -> list[tuple[Optional[str], int]]:
+def sent_specification_requests() -> List[Tuple[Optional[str], int]]:
+    """Send spec request to AMUN retrieved from files."""
     responses = []
     specification_files = list(Path(SPECIFICATION_DIR).rglob("*.json"))
 
@@ -23,18 +25,19 @@ def sent_specification_requests() -> list[tuple[Optional[str], int]]:
         with open(file, "r") as spec_file:
             data = json.load(spec_file)
 
-            response = send_post_amun(AMUN_API, data)
+            response = post_parsed(AMUN_API, data)
             responses.append(
                 (
                     response.get("inspection_id"),
-                    response.get("parameters").get("batch_size"),
+                    response.get("parameters", {}).get("batch_size"),
                 )
             )
 
     return responses
 
 
-def main():
+def send_specifications():
+    """Send specs from retrieved files to Amun."""
     Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
     Path(ID_DIR).mkdir(parents=True, exist_ok=True)
     responses = sent_specification_requests()
@@ -44,4 +47,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    send_specifications()

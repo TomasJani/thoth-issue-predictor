@@ -2,7 +2,7 @@
 
 name: CI
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
@@ -22,31 +22,31 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    
+
     - name: Checkou repositary
       uses: actions/checkout@v2
       with:
         fetch-depth: 1
-  
+
     - name: Setup Python
       uses: actions/setup-python@v2.2.1
       with:
         python-version: 3.9
-    
+
     - name: Setup Enviroment
       run: sudo apt-get update && sudo apt-get -y install libfuzzy-dev && python3.9 -m pip install pipenv
-  
+
     - name: Install packages
       run: python3.9 -m pipenv install -d
-        
+
     - name: Black-CI
       run: python3.9 -m pipenv run make black-ci
-      
+
     - name: Isort-CI
       run: python3.9 -m pipenv run make isort-ci
-    
+
     - name: Flake8-CI
       run: python3.9 -m pipenv run make flake8-ci
-    
-    - name: Pylint-CI
-      run: python3.9 -m pipenv run make pylint-ci
+
+    - name: Pre-Commit
+      run: python3.9 -m pipenv run make precommit

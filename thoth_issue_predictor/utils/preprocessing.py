@@ -1,4 +1,4 @@
-""""Utility functions """
+"""Utility functions."""
 
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -6,13 +6,13 @@ from typing import Any, Dict, List, Tuple
 import pandas as pd
 from parver import Version
 from thoth.report_processing.components import AmunInspections
-from thoth.report_processing.utils import extract_zip_file
 
 
 # TODO this is only temporary, create custom method for my DF later
 def prepare_df(file_name):
+    """Assemble issue DF with all data from inspections."""
     # TODO uncomment when files not present
-    extract_zip_file(file_name)
+    # extract_zip_file(file_name)
 
     inspection = AmunInspections()
 
@@ -35,9 +35,10 @@ def prepare_df(file_name):
     )
 
     inspections_df = inspection.create_inspections_dataframe(
-        processed_inspection_runs=(
-            processed_inspection_runs | failed_inspection_runs
-        ),
+        processed_inspection_runs={
+            **processed_inspection_runs,
+            **failed_inspection_runs,
+        },
     )
 
     return inspections_df
@@ -48,6 +49,7 @@ def prepare_df(file_name):
 def create_python_version_packege_df(
     inspections_df: pd.DataFrame,
 ) -> Tuple[pd.DataFrame, Dict[str, Any], List[str]]:
+    """Create DF for predicting build/runtime issues."""
     python_packages_versions: Dict[str, Any] = {}
     python_packages_names = []
     python_indexes = ["unknown"]
@@ -71,9 +73,7 @@ def create_python_version_packege_df(
 
     python_packages_versions["python"] = []
     for _, row in inspections_df[columns_packages].iterrows():
-        python_version = row[
-            "requirements_locked___meta__requires__python_version"
-        ]
+        python_version = row["requirements_locked___meta__requires__python_version"]
 
         if pd.isnull(python_version):
             python_packages_versions["python"].append(0)
@@ -84,14 +84,10 @@ def create_python_version_packege_df(
 
         for package in python_packages_names:
             version = row[
-                "".join(
-                    ["requirements_locked__default__", package, "__version"]
-                )
+                "".join(["requirements_locked__default__", package, "__version"])
             ]
 
-            index = row[
-                "".join(["requirements_locked__default__", package, "__index"])
-            ]
+            index = row["".join(["requirements_locked__default__", package, "__index"])]
 
             if not pd.isnull(index) and (index not in python_indexes):
                 python_indexes.append(index)

@@ -1,0 +1,11 @@
+jupyter
+thoth-report-processing
+plotly
+matplotlib
+kaleido
+jupyterlab
+pandas
+async_timeout
+typing-extensions
+parver
+pre-commit

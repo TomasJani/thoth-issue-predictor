@@ -1,27 +1,31 @@
-.PHONY: format lint
+.PHONY: format lint precommit
 
 format:
-	black --line-length 79 .
-	black-nb --line-length 79 .
-	isort --profile black --line-length 79 .
+	black .
+	black-nb .
+	isort --profile black .
 
 lint: format
 	flake8 .
-	pylint thoth_issue_predictor
+	#pylint thoth_issue_predictor
+
+precommit:
+	pre-commit run --all-files
+	pre-commit run --all-files
 
 .DEFAULT_GOAL := lint
 
-.PHONY: black-ci isort-ci flake8-ci pylint-ci
+.PHONY: black-ci isort-ci flake8-ci
 
 black-ci:
-	black --line-length 79 .
-	black-nb --line-length 79 .
+	black .
+	black-nb .
 
 isort-ci:
-	isort --profile black --line-length 79 .
+	isort --profile black .
 
 flake8-ci:
 	flake8 .
 
-pylint-ci:
-	pylint thoth_issue_predictor
+aicoe-ci:
+	precommit
