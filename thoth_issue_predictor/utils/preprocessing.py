@@ -7,8 +7,9 @@ import pandas as pd
 from parver import Version
 from thoth.report_processing.components import AmunInspections
 
-
 # TODO this is only temporary, create custom method for my DF later
+
+
 def prepare_df(file_name):
     """Assemble issue DF with all data from inspections."""
     # TODO uncomment when files not present

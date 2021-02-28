@@ -7,7 +7,6 @@ format:
 
 lint: format
 	flake8 .
-	#pylint thoth_issue_predictor
 
 precommit:
 	pre-commit run --all-files
