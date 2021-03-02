@@ -1,6 +1,6 @@
 {
   "base": "quay.io/fridex/intel-optimized-tensorflow",
-  "batch_size": 3,
+  "batch_size": 1,
   "build": {
     "requests": {
       "cpu": "1",

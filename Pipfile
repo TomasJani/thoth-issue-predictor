@@ -17,6 +17,7 @@ async_timeout = "*"
 typing-extensions = "*"
 parver = "*"
 graphviz = "*"
+pandas-profiling = "*"
 
 [dev-packages]
 black = "*"

@@ -7,6 +7,7 @@ recursive-include thoth_issue_predictor *.ipynb
 recursive-include thoth_issue_predictor *.json
 recursive-include thoth_issue_predictor *.py
 recursive-include thoth_issue_predictor *.zip
+recursive-include thoth_issue_predictor/loader/specifications *
 
 exclude .flake8
 exclude .pylintrc
