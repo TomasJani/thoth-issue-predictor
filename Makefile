@@ -10,7 +10,6 @@ lint: format
 
 precommit:
 	pre-commit run --all-files
-	pre-commit run --all-files
 
 .DEFAULT_GOAL := lint
 

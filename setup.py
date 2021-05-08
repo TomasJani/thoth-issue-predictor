@@ -19,7 +19,9 @@ def read(fname):
 setup(
     name="thoth-issue-predicator",
     version="0.0.1",
-    description="A useful module",
+    description="This project contains a predictive model that can, "
+    "based on data aggregated, spot patterns causing "
+    "issues in software stacks",
     author="Tomas Janicek",
     author_email="tomasjanicek221@gmail.com",
     packages=["thoth_issue_predictor"],

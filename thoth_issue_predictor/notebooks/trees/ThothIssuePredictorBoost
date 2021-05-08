@@ -1,39 +1,79 @@
 digraph {
-    0 [label="grpcio_index, value>1.5" color=black shape=ellipse]
-    1 [label="keras-preprocessing_patch, value>1" color=black shape=ellipse]
+    0 [label="chardet_minor, value>2.5" color=black shape=ellipse]
+    1 [label="flatbuffers_minor, value>6" color=black shape=ellipse]
     0 -> 1 [label=No]
-    2 [label="keras-preprocessing_patch, value>1" color=black shape=ellipse]
+    2 [label="flatbuffers_minor, value>6" color=black shape=ellipse]
     0 -> 2 [label=Yes]
-    3 [label="setuptools_major, value>37.5" color=black shape=ellipse]
+    3 [label="wrapt_patch, value>0.5" color=black shape=ellipse]
     1 -> 3 [label=No]
-    4 [label="setuptools_major, value>37.5" color=black shape=ellipse]
+    4 [label="wrapt_patch, value>0.5" color=black shape=ellipse]
     1 -> 4 [label=Yes]
-    5 [label="setuptools_major, value>37.5" color=black shape=ellipse]
+    5 [label="wrapt_patch, value>0.5" color=black shape=ellipse]
     2 -> 5 [label=No]
-    6 [label="setuptools_major, value>37.5" color=black shape=ellipse]
+    6 [label="wrapt_patch, value>0.5" color=black shape=ellipse]
     2 -> 6 [label=Yes]
-    7 [label="val = -0.192
-" color=red shape=rect]
+    7 [label="setuptools_major, value>37.5" color=black shape=ellipse]
     3 -> 7 [label=No]
-    8 [label="val = -0.169
-" color=red shape=rect]
+    8 [label="setuptools_major, value>37.5" color=black shape=ellipse]
     3 -> 8 [label=Yes]
-    9 [label="val = 0.000
-" color=red shape=rect]
+    9 [label="setuptools_major, value>37.5" color=black shape=ellipse]
     4 -> 9 [label=No]
-    10 [label="val = -0.547
-" color=red shape=rect]
+    10 [label="setuptools_major, value>37.5" color=black shape=ellipse]
     4 -> 10 [label=Yes]
-    11 [label="val = 0.204
-" color=red shape=rect]
+    11 [label="setuptools_major, value>37.5" color=black shape=ellipse]
     5 -> 11 [label=No]
-    12 [label="val = -0.232
-" color=red shape=rect]
+    12 [label="setuptools_major, value>37.5" color=black shape=ellipse]
     5 -> 12 [label=Yes]
-    13 [label="val = -0.247
-" color=red shape=rect]
+    13 [label="setuptools_major, value>37.5" color=black shape=ellipse]
     6 -> 13 [label=No]
-    14 [label="val = -0.056
-" color=red shape=rect]
+    14 [label="setuptools_major, value>37.5" color=black shape=ellipse]
     6 -> 14 [label=Yes]
+    15 [label="val = -0.082
+" color=red shape=rect]
+    7 -> 15 [label=No]
+    16 [label="val = -0.034
+" color=red shape=rect]
+    7 -> 16 [label=Yes]
+    17 [label="val = -0.064
+" color=red shape=rect]
+    8 -> 17 [label=No]
+    18 [label="val = -0.075
+" color=red shape=rect]
+    8 -> 18 [label=Yes]
+    19 [label="val = 0.000
+" color=red shape=rect]
+    9 -> 19 [label=No]
+    20 [label="val = 0.000
+" color=red shape=rect]
+    9 -> 20 [label=Yes]
+    21 [label="val = 0.000
+" color=red shape=rect]
+    10 -> 21 [label=No]
+    22 [label="val = -0.175
+" color=red shape=rect]
+    10 -> 22 [label=Yes]
+    23 [label="val = 0.000
+" color=red shape=rect]
+    11 -> 23 [label=No]
+    24 [label="val = 0.000
+" color=red shape=rect]
+    11 -> 24 [label=Yes]
+    25 [label="val = 0.074
+" color=red shape=rect]
+    12 -> 25 [label=No]
+    26 [label="val = -0.035
+" color=red shape=rect]
+    12 -> 26 [label=Yes]
+    27 [label="val = 0.000
+" color=red shape=rect]
+    13 -> 27 [label=No]
+    28 [label="val = 0.000
+" color=red shape=rect]
+    13 -> 28 [label=Yes]
+    29 [label="val = 0.000
+" color=red shape=rect]
+    14 -> 29 [label=No]
+    30 [label="val = 0.000
+" color=red shape=rect]
+    14 -> 30 [label=Yes]
 }

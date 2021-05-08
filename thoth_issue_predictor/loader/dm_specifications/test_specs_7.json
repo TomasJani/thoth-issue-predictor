@@ -79,10 +79,20 @@
       {
         "configuration": {},
         "name": "PackageIndexSieve"
+      },
+      {
+        "configuration": {
+          "without_error": true
+        },
+        "name": "SolvedSieve"
       }
     ],
     "steps": [],
-    "strides": [],
+    "strides": [
+      {
+        "name": "UniqueStackStride"
+      }
+    ],
     "wraps": [
       {
         "configuration": {},
