@@ -1,4 +1,6 @@
 jupyter
+jupyter_contrib_nbextensions
+jupyter-nbrequirements
 thoth-report-processing
 plotly
 matplotlib
@@ -8,4 +10,6 @@ pandas
 async_timeout
 typing-extensions
 parver
-pre-commit
+graphviz
+pandas-profiling
+catboost

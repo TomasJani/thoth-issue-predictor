@@ -5,11 +5,11 @@ format:
 	black-nb .
 	isort --profile black .
 
-lint: format
-	flake8 .
-
 precommit:
 	pre-commit run --all-files
+
+lint: format precommit
+	flake8 .
 
 .DEFAULT_GOAL := lint
 
