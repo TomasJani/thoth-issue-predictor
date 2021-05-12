@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore")
 def grid_search(x, y):
     """Grid search helper function with results display."""
     x_train, x_test, y_train, y_test = train_test_split(
-        x, y, test_size=0.5, random_state=0
+        x, y, test_size=0.33, random_state=0
     )
 
     # Set the parameters by cross-validation
@@ -27,12 +27,7 @@ def grid_search(x, y):
         }
     ]
 
-    scores = ["precision", "recall"]
+    clf = GridSearchCV(DecisionTreeClassifier(), tuned_parameters, scoring="roc_auc")
+    clf.fit(x_train, y_train)
 
-    for score in scores:
-        clf = GridSearchCV(
-            DecisionTreeClassifier(), tuned_parameters, scoring="%s_macro" % score
-        )
-        clf.fit(x_train, y_train)
-
-        return clf.best_params_
+    return clf.best_params_

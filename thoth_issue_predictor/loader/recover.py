@@ -16,7 +16,7 @@ from thoth_issue_predictor.loader.config import (
     WAIT_TIME,
 )
 from thoth_issue_predictor.loader.status import Status
-from thoth_issue_predictor.loader.utils import _write_to_file, get_parsed
+from thoth_issue_predictor.loader.utils import write_to_file, get_parsed
 
 logging.basicConfig(level=logging.INFO)
 
@@ -54,7 +54,7 @@ def get_specification(inspection_id: str):
     response = get_parsed(url)
     specifications = response.get("specification", {})
     spec_file_path = Path(f"{OUTPUT_DIR}/{inspection_id}/build/specification")
-    _write_to_file(spec_file_path, specifications)
+    write_to_file(spec_file_path, specifications)
 
 
 def get_result(inspection_id: str, batch_size: int):
@@ -67,7 +67,7 @@ def get_result(inspection_id: str, batch_size: int):
                 f"{OUTPUT_DIR}/{inspection_id}/results/{batch_number}/result"
             )
             if response is not None:
-                _write_to_file(inspection_file_path, response.get("result", {}))
+                write_to_file(inspection_file_path, response.get("result", {}))
                 break
 
 
