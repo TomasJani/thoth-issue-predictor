@@ -1,4 +1,4 @@
-"""Helper for loading and retrieving inspections."""
+"""Helper for sending specification files to Thoth services."""
 import json
 import logging
 from abc import ABC, abstractmethod
@@ -12,14 +12,17 @@ logging.basicConfig(level=logging.INFO)
 
 
 class BaseRequester(ABC):
+    """Helper for sending specification files to Thoth services."""
+
     def __init__(self, url: str, specs_path: str, id_path: str):
+        """Initialize object attributes."""
         self.url: str = url
         self.specs_path: str = specs_path
         self.id_path: str = id_path
         self.response_data: List[Tuple[Optional[str], int]] = []
 
     def sent_specification_requests(self):
-        """Send spec request to AMUN retrieved from files."""
+        """Send specification request to given service. Specifications are retrieved from files in spec_path."""
         specification_files = list(Path(self.specs_path).rglob("*.json"))
 
         for file in specification_files:
@@ -31,13 +34,11 @@ class BaseRequester(ABC):
 
     @abstractmethod
     def save_to_ids(self, response):
-        """Adds chosen fields from response to list of results."""
+        """Add chosen fields from response to list of results."""
 
     def send_specifications(self):
-        """Send specs from retrieved files to Amun."""
+        """Send specs from retrieved files to given service."""
         Path(self.id_path).mkdir(parents=True, exist_ok=True)
         self.sent_specification_requests()
         inspection_file_path = Path(f"{self.id_path}/{datetime.now()}.json")
-        # TODO remove print
-        print(self.response_data)
         write_to_file(inspection_file_path, self.response_data)

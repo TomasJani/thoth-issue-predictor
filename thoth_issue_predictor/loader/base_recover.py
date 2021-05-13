@@ -17,7 +17,12 @@ logging.basicConfig(level=logging.INFO)
 
 
 class BaseRecover(ABC):
-    def __init__(self, inspections_path: str, ids_path: str, status_url: str, result_url: str):
+    """Implement inspection recover for Thoth services."""
+
+    def __init__(
+        self, inspections_path: str, ids_path: str, status_url: str, result_url: str
+    ):
+        """Initialize object attributes."""
         self.inspections_path: str = inspections_path
         self.ids_path: str = ids_path
         self.status_url: str = status_url
@@ -40,7 +45,7 @@ class BaseRecover(ABC):
         """Parse data from ids file."""
 
     def recover(self):
-        """Load inspection ids and (if present) batch size from files."""
+        """Load identification data from files and retrieve their results."""
         Path(self.inspections_path).mkdir(parents=True, exist_ok=True)
         id_files = list(Path(self.ids_path).glob("*.json"))
         id_file = max(id_files)

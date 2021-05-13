@@ -1,7 +1,10 @@
+"""Implementation of BaseRecover for Amun service."""
 import logging
 from pathlib import Path
 from time import sleep
+from typing import Tuple
 
+from thoth_issue_predictor.loader.base_recover import BaseRecover
 from thoth_issue_predictor.loader.config import (
     AMUN_BATCH,
     AMUN_RESULT,
@@ -10,13 +13,15 @@ from thoth_issue_predictor.loader.config import (
     ID_DIR,
     OUTPUT_DIR,
 )
-from thoth_issue_predictor.loader.recover import BaseRecover
 from thoth_issue_predictor.loader.status import Status
 from thoth_issue_predictor.loader.utils import get_parsed, write_to_file
 
 
 class AmunRecover(BaseRecover):
+    """Implementation of BaseRecover for Amun service."""
+
     def __init__(self):
+        """Initialize object attributes."""
         super().__init__(
             inspections_path=OUTPUT_DIR,
             ids_path=ID_DIR,
@@ -27,6 +32,7 @@ class AmunRecover(BaseRecover):
         self.batch_url = AMUN_BATCH
 
     def check_status(self, inspection_id: str) -> Status:
+        """Get status of inspection with given id."""
         status_url = self.status_url.format(id=inspection_id)
 
         for n_try in range(self.max_tries):
@@ -54,6 +60,7 @@ class AmunRecover(BaseRecover):
         return Status.UNFINISHED
 
     def get_specification(self, inspection_id: str):
+        """Get specification for given inspection id."""
         url = self.specs_url.format(id=inspection_id)
         response = get_parsed(url)
         specifications = response.get("specification", {})
@@ -63,6 +70,7 @@ class AmunRecover(BaseRecover):
         write_to_file(spec_file_path, specifications)
 
     def get_result(self, inspection_id: str, *args):
+        """Get result and specification of inspection with given id.."""
         batch_size = args[0]
         self.get_specification(inspection_id)
         for batch_number in range(batch_size):
@@ -76,11 +84,12 @@ class AmunRecover(BaseRecover):
                     write_to_file(inspection_file_path, response.get("result", {}))
                     break
 
-    def parse_ids_file(self, row: any) -> (str, int):
+    def parse_ids_file(self, row) -> Tuple[str, int]:
+        """Parse data from ids file."""
         if isinstance(row, str):
             inspection_id = row
             url = self.batch_url.format(id=inspection_id)
-            batch_size = get_parsed(url).get("batch_size")
+            batch_size = get_parsed(url).get("batch_size", 0)
         else:
             inspection_id, batch_size = row
 

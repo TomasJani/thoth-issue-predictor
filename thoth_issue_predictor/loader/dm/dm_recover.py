@@ -1,21 +1,25 @@
+"""Implementation of BaseRecover for DM service."""
 import logging
 from pathlib import Path
 from time import sleep
 from typing import List
 
+from thoth_issue_predictor.loader.base_recover import BaseRecover
 from thoth_issue_predictor.loader.config import (
     DM_ID_DIR,
     DM_OUTPUT_DIR,
     DM_RESULT,
     DM_STATUS,
 )
-from thoth_issue_predictor.loader.recover import BaseRecover
 from thoth_issue_predictor.loader.status import Status
 from thoth_issue_predictor.loader.utils import get_parsed, write_to_file
 
 
 class DmRecover(BaseRecover):
+    """Implementation of BaseRecover for DM service."""
+
     def __init__(self):
+        """Initialize object attributes."""
         super().__init__(
             inspections_path=DM_OUTPUT_DIR,
             ids_path=DM_ID_DIR,
@@ -24,6 +28,7 @@ class DmRecover(BaseRecover):
         )
 
     def check_status(self, inspection_id: str) -> Status:
+        """Get status of inspection with given id."""
         status_url = self.status_url.format(id=inspection_id)
 
         for n_try in range(self.max_tries):
@@ -48,6 +53,7 @@ class DmRecover(BaseRecover):
         return Status.UNFINISHED
 
     def get_result(self, inspection_id: str, *args):
+        """Get result and specification of inspection with given id.."""
         for _ in range(self.max_tries):
             url = self.result_url.format(id=inspection_id)
             response = get_parsed(url)
@@ -57,6 +63,7 @@ class DmRecover(BaseRecover):
                 break
 
     def parse_ids_file(self, row) -> List[str]:
+        """Parse data from ids file."""
         return [row]
 
 
