@@ -1,3 +1,4 @@
+"""Project utilities."""
 from zipfile import ZipFile
 
 

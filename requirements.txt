@@ -13,3 +13,8 @@ parver
 graphviz
 pandas-profiling
 catboost
+setuptools
+numpy
+seaborn
+scikit-learn
+requests

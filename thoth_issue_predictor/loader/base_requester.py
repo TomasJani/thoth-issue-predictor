@@ -22,7 +22,7 @@ class BaseRequester(ABC):
         self.response_data: List[Tuple[Optional[str], int]] = []
 
     def sent_specification_requests(self):
-        """Send specification request to given service. Specifications are retrieved from files in spec_path."""
+        """Send specification retrieved from file to given service."""
         specification_files = list(Path(self.specs_path).rglob("*.json"))
 
         for file in specification_files:
