@@ -2,6 +2,9 @@
 inspections/
 ids/
 
+# CatBoost
+catboost_info/
+
 # Idea
 .idea/
 

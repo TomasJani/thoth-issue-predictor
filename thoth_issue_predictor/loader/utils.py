@@ -8,7 +8,7 @@ from typing import Union
 import requests
 
 
-def _write_to_file(file_path: Path, data: Union[str, dict, list]):
+def write_to_file(file_path: Path, data: Union[str, dict, list]):
     """Write json to file."""
     dir_name = file_path.parent
     dir_name.mkdir(parents=True, exist_ok=True)

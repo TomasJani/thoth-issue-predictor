@@ -1,0 +1,116 @@
+{
+  "context": {
+    "base": "quay.io/thoth-station/s2i-thoth-ubi8-py38:v0.24.2",
+    "batch_size": 1,
+    "build": {
+      "requests": {
+        "cpu": "1",
+        "memory": "1Gi"
+      }
+    },
+    "files": [],
+    "identifier": "tf-dm-tf24",
+    "packages": [
+      "which",
+      "python3-pip"
+    ],
+    "python_packages": [
+      "micropipenv[toml]"
+    ],
+    "package_manager": "micropipenv",
+    "run": {
+      "requests": {
+        "cpu": "1",
+        "memory": "4Gi"
+      }
+    },
+    "script": "https://raw.githubusercontent.com/thoth-station/performance/master/tensorflow/matmul.py"
+  },
+  "pipeline": {
+    "boots": [
+      {
+        "configuration": {},
+        "name": "UbiBoot"
+      },
+      {
+        "configuration": {},
+        "name": "PythonVersionBoot"
+      },
+      {
+        "configuration": {},
+        "name": "RHELVersionBoot"
+      },
+      {
+        "configuration": {
+          "default_platform": "linux-x86_64"
+        },
+        "name": "PlatformBoot"
+      },
+      {
+        "configuration": {},
+        "name": "FullySpecifiedEnvironment"
+      }
+    ],
+    "sieves": [
+      {
+        "configuration": {},
+        "name": "CutPreReleasesSieve"
+      },
+      {
+        "configuration": {},
+        "name": "Functools32BackportSieve"
+      },
+      {
+        "configuration": {},
+        "name": "Enum34BackportSieve"
+      },
+      {
+        "configuration": {},
+        "name": "MockBackportSieve"
+      },
+      {
+        "configuration": {},
+        "name": "CutLockedSieve"
+      },
+      {
+        "configuration": {},
+        "name": "Py36SetuptoolsSieve"
+      },
+      {
+        "configuration": {},
+        "name": "PackageIndexSieve"
+      },
+      {
+        "configuration": {
+          "without_error": true
+        },
+        "name": "SolvedSieve"
+      }
+    ],
+    "steps": [],
+    "strides": [],
+    "wraps": []
+  },
+  "predictor": "RandomWalk",
+  "predictor_config": {},
+  "requirements": {
+    "packages": {
+      "tensorflow": "*"
+    },
+    "requires": {
+      "python_version": "3.8"
+    },
+    "source": []
+  },
+  "runtime_environment": {
+    "hardware": {
+      "cpu_family": null,
+      "cpu_model": null
+    },
+    "operating_system": {
+      "name": "rhel",
+      "version": "8"
+    },
+    "python_version": "3.8"
+  }
+}

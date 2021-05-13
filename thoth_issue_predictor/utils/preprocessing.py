@@ -1,19 +1,23 @@
 """Utility functions."""
-
+import logging
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 import pandas as pd
 from parver import Version
-from thoth.report_processing.components import AmunInspections
+from thoth.report_processing.components.inspection import AmunInspections
+
+from thoth_issue_predictor.utils.utils import extract_zip_file
+
+logger = logging.getLogger("thoth.report_processing.components.inspection")
+logger.setLevel(logging.ERROR)
+
 
 # TODO this is only temporary, create custom method for my DF later
-
-
 def prepare_df(file_name):
     """Assemble issue DF with all data from inspections."""
     # TODO uncomment when files not present
-    # extract_zip_file(file_name)
+    extract_zip_file(file_name, "./inspections/")
 
     inspection = AmunInspections()
 

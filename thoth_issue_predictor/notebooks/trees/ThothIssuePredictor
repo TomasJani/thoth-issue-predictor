@@ -1,0 +1,33 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname=helvetica] ;
+edge [fontname=helvetica] ;
+0 [label=<chardet_minor &le; 2.367<br/>gini = 0.102<br/>samples = 1168<br/>value = [1105, 63]<br/>class = successful>, fillcolor="#e68844"] ;
+1 [label=<urllib3_minor &le; 10.277<br/>gini = 0.011<br/>samples = 1087<br/>value = [1081, 6]<br/>class = successful>, fillcolor="#e5823a"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label=<wrapt_patch &le; 1.947<br/>gini = 0.091<br/>samples = 126<br/>value = [120, 6]<br/>class = successful>, fillcolor="#e68743"] ;
+1 -> 2 ;
+3 [label=<keras-preprocessing_patch &le; 2.365<br/>gini = 0.022<br/>samples = 91<br/>value = [90, 1]<br/>class = successful>, fillcolor="#e5823b"] ;
+2 -> 3 ;
+4 [label=<gini = 0.0<br/>samples = 70<br/>value = [70, 0]<br/>class = successful>, fillcolor="#e58139"] ;
+3 -> 4 ;
+5 [label=<gini = 0.091<br/>samples = 21<br/>value = [20, 1]<br/>class = successful>, fillcolor="#e68743"] ;
+3 -> 5 ;
+6 [label=<certifi_minor &le; 1.107<br/>gini = 0.245<br/>samples = 35<br/>value = [30, 5]<br/>class = successful>, fillcolor="#e9965a"] ;
+2 -> 6 ;
+7 [label=<gini = 0.0<br/>samples = 3<br/>value = [0, 3]<br/>class = failed>, fillcolor="#399de5"] ;
+6 -> 7 ;
+8 [label=<gini = 0.117<br/>samples = 32<br/>value = [30, 2]<br/>class = successful>, fillcolor="#e78946"] ;
+6 -> 8 ;
+9 [label=<gini = 0.0<br/>samples = 961<br/>value = [961, 0]<br/>class = successful>, fillcolor="#e58139"] ;
+1 -> 9 ;
+10 [label=<urllib3_patch &le; 0.93<br/>gini = 0.417<br/>samples = 81<br/>value = [24, 57]<br/>class = failed>, fillcolor="#8cc6f0"] ;
+0 -> 10 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+11 [label=<urllib3_minor &le; 11.304<br/>gini = 0.065<br/>samples = 59<br/>value = [2, 57]<br/>class = failed>, fillcolor="#40a0e6"] ;
+10 -> 11 ;
+12 [label=<gini = 0.0<br/>samples = 57<br/>value = [0, 57]<br/>class = failed>, fillcolor="#399de5"] ;
+11 -> 12 ;
+13 [label=<gini = 0.0<br/>samples = 2<br/>value = [2, 0]<br/>class = successful>, fillcolor="#e58139"] ;
+11 -> 13 ;
+14 [label=<gini = 0.0<br/>samples = 22<br/>value = [22, 0]<br/>class = successful>, fillcolor="#e58139"] ;
+10 -> 14 ;
+}

@@ -11,7 +11,7 @@ from thoth_issue_predictor.loader.config import (
     OUTPUT_DIR,
     SPECIFICATION_DIR,
 )
-from thoth_issue_predictor.loader.utils import _write_to_file, post_parsed
+from thoth_issue_predictor.loader.utils import write_to_file, post_parsed
 
 logging.basicConfig(level=logging.INFO)
 
@@ -43,7 +43,7 @@ def send_specifications():
     responses = sent_specification_requests()
     inspection_file_path = Path(f"{ID_DIR}/{datetime.now()}.json")
     print(responses)
-    _write_to_file(inspection_file_path, responses)
+    write_to_file(inspection_file_path, responses)
 
 
 if __name__ == "__main__":
