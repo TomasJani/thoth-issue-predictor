@@ -1,4 +1,4 @@
-"""Utility functions."""
+"""Prepares achieved dataset into structure which is possible to process with model."""
 import logging
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -7,17 +7,16 @@ import pandas as pd
 from parver import Version
 from thoth.report_processing.components.inspection import AmunInspections
 
+from thoth_issue_predictor.preprocessing.config import DATASET_PATH, INSPECTIONS_PATH
 from thoth_issue_predictor.utils.utils import extract_zip_file
 
 logger = logging.getLogger("thoth.report_processing.components.inspection")
 logger.setLevel(logging.ERROR)
 
 
-# TODO this is only temporary, create custom method for my DF later
-def prepare_df(file_name):
+def prepare_df() -> pd.DataFrame:
     """Assemble issue DF with all data from inspections."""
-    # TODO uncomment when files not present
-    extract_zip_file(file_name, "./inspections/")
+    extract_zip_file(DATASET_PATH, INSPECTIONS_PATH)
 
     inspection = AmunInspections()
 
@@ -31,7 +30,6 @@ def prepare_df(file_name):
         ],
     )
 
-    # TODO this function can return just one dict
     (
         processed_inspection_runs,
         failed_inspection_runs,
@@ -51,9 +49,9 @@ def prepare_df(file_name):
 
 # TODO Ignored, will be refactored later
 # pylint: disable=too-many-branches,too-complex
-def create_python_version_packege_df(
+def create_df(
     inspections_df: pd.DataFrame,
-) -> Tuple[pd.DataFrame, Dict[str, Any], List[str]]:
+) -> Tuple[pd.DataFrame, List[str]]:
     """Create DF for predicting build/runtime issues."""
     python_packages_versions: Dict[str, Any] = {}
     python_packages_names = []
@@ -101,19 +99,19 @@ def create_python_version_packege_df(
                 if f"{package}_major" not in python_packages_versions.keys():
                     python_packages_versions[f"{package}_major"] = []
                     python_packages_versions[f"{package}_minor"] = []
-                    python_packages_versions[f"{package}_patch"] = []
+                    python_packages_versions[f"{package}_micro"] = []
                     python_packages_versions[f"{package}_index"] = []
 
                 python_packages_versions[f"{package}_major"].append(0)
                 python_packages_versions[f"{package}_minor"].append(0)
-                python_packages_versions[f"{package}_patch"].append(0)
+                python_packages_versions[f"{package}_micro"].append(0)
                 python_packages_versions[f"{package}_index"].append(0)
 
             else:
                 if f"{package}_major" not in python_packages_versions.keys():
                     python_packages_versions[f"{package}_major"] = []
                     python_packages_versions[f"{package}_minor"] = []
-                    python_packages_versions[f"{package}_patch"] = []
+                    python_packages_versions[f"{package}_micro"] = []
                     python_packages_versions[f"{package}_index"] = []
 
                 try:
@@ -133,7 +131,7 @@ def create_python_version_packege_df(
                     if len(package_version.release) > 1
                     else 0
                 )
-                python_packages_versions[f"{package}_patch"].append(
+                python_packages_versions[f"{package}_micro"].append(
                     package_version.release[2]
                     if len(package_version.release) > 2
                     else 0
@@ -144,6 +142,5 @@ def create_python_version_packege_df(
 
     return (
         pd.DataFrame(python_packages_versions),
-        python_packages_versions,
         python_indexes,
     )
