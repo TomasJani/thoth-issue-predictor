@@ -67,5 +67,5 @@ class ModelEvaluation:
         print(f"Confusion matrix for {self.model_name}")
         print(cm.confusion_matrix)
         plt.grid(False)
-        plt.savefig(f"./trees/{self.model_name}.pdf")
+        plt.savefig(f"./trees/{self.model_name}_matrix.pdf")
         plt.show()

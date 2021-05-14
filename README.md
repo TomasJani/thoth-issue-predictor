@@ -7,18 +7,40 @@ causing issues in software stacks and predict which software stacks will likely 
 running the application. An example of an issue can be a specific version of TensorFlow installed together
 with a specific version of numpy that cause API incompatibility issues spotted on run time.
 
-## Running Jupyter Notebook on VM
-Open all HTTP ports
+## Prerequisites
 
-Then generate jupyter_notebook_config.py file.
+Docker with Docker buildkit.
 
-`$ jupyter notebook --generate-config`
+Commands below work only if docker runs on root user.
 
-Config will be saved in `/home/ubuntu/.jupyter/jupyter_notebook_config.py`
+## Run using Docker container
 
-By default, jupyter_notebook_config.py would have everything commented. Modify the following entries:
+```bash
+export APP_NAME="thoth_issue_predictor"
+export BUILD_DATE=$(date +'%Y-%m-%d %H:%M:%S')
+export VCS_BRANCH=$(git branch --show-current)
+export VCS_REF=$(git rev-parse HEAD)
 
- - Accept incoming request from any host (not only localhost).
-   Find **#c.NotebookApp.ip = 'localhost'** and change it to c.NotebookApp.ip = '*'
- - Do not launch a browser.
-   Find **#c.NotebookApp.open_browser = True** and change it to c.NotebookApp.open_browser = False
+DOCKER_BUILDKIT=1 docker build . \
+       --tag "$APP_NAME":"$VCS_REF" \
+       --target deployment \
+       --build-arg BUILD_DATE="$BUILD_DATE"  \
+       --build-arg VCS_BRANCH="$VCS_BRANCH" \
+       --build-arg VCS_REF="$VCS_REF" \
+       --ssh default
+```
+
+```bash
+export APP_NAME="thoth_issue_predictor"
+export VCS_REF=$(git rev-parse HEAD)
+
+docker run --net=host \
+           --rm \
+           --name "$APP_NAME"_cmd \
+           --log-opt tag=$APP_NAME \
+           --log-driver=journald \
+           "$APP_NAME":"$VCS_REF" \
+           jupyter lab
+```
+
+## Run development environment

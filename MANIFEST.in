@@ -3,6 +3,7 @@ include *.txt
 include *.yaml
 include Makefile
 include Pipfile
+include Dockerfile
 recursive-include thoth_issue_predictor *.ipynb
 recursive-include thoth_issue_predictor *.json
 recursive-include thoth_issue_predictor *.py
