@@ -29,6 +29,7 @@ RUN apt-get update && apt-get upgrade -y \
     git \
     curl \
     pipenv \
+    graphviz \
  && groupadd -g $GID $USER \
  && useradd -m -u $UID -g $GID -s /bin/bash $USER \
  && install -d -m 0755 -o $USER -g $USER $WORKDIR

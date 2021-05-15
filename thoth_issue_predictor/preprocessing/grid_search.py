@@ -12,11 +12,10 @@ def grid_search_scikit(x, y):
     """Grid search helper function for Scikit Decision tree classifier."""
     tuned_parameters = [
         {
-            "criterion": ["gini", "entropy"],
             "splitter": ["best", "random"],
             "max_depth": [3, 4, 5, 6],
-            "min_samples_split": [2, 5, 8],
-            "min_samples_leaf": [1, 2, 3, 5],
+            "min_samples_split": [3, 5],
+            "min_samples_leaf": [3, 5],
             "random_state": [10, 20, 50, 100],
         }
     ]
@@ -33,12 +32,11 @@ def grid_search_catboost(pool):
         "verbose": False,
         "eval_metric": "AUC",
         "loss_function": "Logloss",
-        "leaf_estimation_iterations": 10,
     }
     grid = {
         "iterations": [1000, 2000],
-        "depth": [4, 5, 6, 7],
-        "l2_leaf_reg": [3, 5, 7],
+        "depth": [3, 4, 5, 6],
+        "l2_leaf_reg": [3, 7, 15, 25],
     }
     model = CatBoostClassifier(**params)
     search_results = model.grid_search(grid, X=pool, verbose=False)

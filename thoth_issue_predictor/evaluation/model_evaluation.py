@@ -2,6 +2,7 @@
 from datetime import datetime
 
 from matplotlib import pyplot as plt
+from sklearn import metrics
 from sklearn.metrics import (
     accuracy_score,
     classification_report,
@@ -68,4 +69,8 @@ class ModelEvaluation:
         print(cm.confusion_matrix)
         plt.grid(False)
         plt.savefig(f"./trees/{self.model_name}_matrix.pdf")
+        plt.show()
+
+        metrics.plot_roc_curve(self.clf, self.x_test, self.y_test)
+        plt.savefig(f"./trees/{self.model_name}_roc.pdf")
         plt.show()
