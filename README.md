@@ -7,6 +7,17 @@ causing issues in software stacks and predict which software stacks will likely 
 running the application. An example of an issue can be a specific version of TensorFlow installed together
 with a specific version of numpy that cause API incompatibility issues spotted on run time.
 
+## Modules
+
+This project consist of four submodules:
+ - notebooks
+ - preprocessing
+ - evaluation
+ - loader
+
+Each module contains README.md with brief description and manual for installing
+and starting.
+
 ## Prerequisites
 
 Docker with Docker buildkit.
@@ -14,6 +25,14 @@ Docker with Docker buildkit.
 Commands below work only if docker runs on root user.
 
 ## Run using Docker container
+
+### Prerequisites
+
+Docker with Docker buildkit.
+
+Commands below work only if docker runs on root user.
+
+### Docker build and run
 
 ```bash
 export APP_NAME="thoth_issue_predictor"
@@ -44,3 +63,15 @@ docker run --net=host \
 ```
 
 ## Run development environment
+
+### Prerequisites
+
+Python, Graphwiz and Pipenv
+
+### Set-up development environment
+
+```bash
+pipenv install
+```
+
+### Lint & CI
