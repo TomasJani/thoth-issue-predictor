@@ -3,21 +3,24 @@ include *.txt
 include *.yaml
 include Makefile
 include Pipfile
+include Dockerfile
 recursive-include thoth_issue_predictor *.ipynb
 recursive-include thoth_issue_predictor *.json
 recursive-include thoth_issue_predictor *.py
 recursive-include thoth_issue_predictor *.zip
 recursive-include thoth_issue_predictor/notebooks/trees *
-recursive-include thoth_issue_predictor/loader/specifications *
-recursive-include thoth_issue_predictor/loader/dm_specifications *
+recursive-include thoth_issue_predictor/loader/dm/specifications *
+recursive-include thoth_issue_predictor/loader/amun/specifications *
 
 exclude .flake8
 exclude .pylintrc
 exclude thoth_issue_predictor/notebooks/ThothIssuePredictor*
-recursive-exclude thoth_issue_predictor/loader/inspections *
 recursive-exclude thoth_issue_predictor *.pyc
+recursive-exclude thoth_issue_predictor/loader/amun/inspections *
+recursive-exclude thoth_issue_predictor/loader/dm/inspections *
 recursive-exclude thoth_issue_predictor/notebooks/inspections *
-recursive-exclude thoth_issue_predictor/loader/ids *
+recursive-exclude thoth_issue_predictor/loader/dm/ids *
+recursive-exclude thoth_issue_predictor/loader/amun/ids *
 recursive-exclude thoth_issue_predictor/notebooks/.ipynb_checkpoints *
 recursive-exclude thoth_issue_predictor *.log
 recursive-exclude thoth_issue_predictor/notebooks/catboost_info *

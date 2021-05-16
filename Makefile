@@ -9,7 +9,7 @@ precommit:
 	pre-commit run --all-files
 
 lint: format precommit
-	flake8 .
+	flake8 . --ignore E2,W5 --select E,W,F,N --max-line-length=120
 
 .DEFAULT_GOAL := lint
 
@@ -23,7 +23,7 @@ isort-ci:
 	isort --profile black .
 
 flake8-ci:
-	flake8 .
+	flake8 . --ignore E2,W5 --select E,W,F,N --max-line-length=120
 
 aicoe-ci:
 	precommit
