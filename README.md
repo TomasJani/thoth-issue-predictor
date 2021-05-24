@@ -44,15 +44,11 @@ Commands below work only if docker runs on root user.
 ```bash
 export APP_NAME="thoth_issue_predictor"
 export BUILD_DATE=$(date +'%Y-%m-%d %H:%M:%S')
-export VCS_BRANCH=$(git branch --show-current)
-export VCS_REF=$(git rev-parse HEAD)
 
 DOCKER_BUILDKIT=1 docker build . \
-       --tag "$APP_NAME":"$VCS_REF" \
+       --tag "$APP_NAME" \
        --target deployment \
        --build-arg BUILD_DATE="$BUILD_DATE"  \
-       --build-arg VCS_BRANCH="$VCS_BRANCH" \
-       --build-arg VCS_REF="$VCS_REF" \
        --ssh default
 ```
 
@@ -60,14 +56,13 @@ DOCKER_BUILDKIT=1 docker build . \
 
 ```bash
 export APP_NAME="thoth_issue_predictor"
-export VCS_REF=$(git rev-parse HEAD)
 
 docker run --net=host \
            --rm \
            --name "$APP_NAME"_cmd \
            --log-opt tag=$APP_NAME \
            --log-driver=journald \
-           "$APP_NAME":"$VCS_REF" \
+           "$APP_NAME" \
            jupyter lab
 ```
 
