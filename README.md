@@ -96,5 +96,5 @@ pipenv run jupyter lab
 
 Command for running all liters:
 ```bash
-make lint
+pipenv run make lint
 ```

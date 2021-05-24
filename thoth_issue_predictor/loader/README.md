@@ -2,6 +2,8 @@
 
 ![Loader iteration](loader.png)
 
+**This model can not be run without privleage to Thoths inetranl APIs!**
+
 Loader is a Python module we developed to automate sending and gathering requests
 from Management and Amun API. It consists of two abstract classes, each having both
 Amun and DM implementations. Abstract class Request sends requests to Thoth's service.

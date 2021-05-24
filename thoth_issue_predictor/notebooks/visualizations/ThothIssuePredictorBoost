@@ -1,39 +1,69 @@
 digraph {
-    0 [label="pyasn1-modules_micro, value>1.5" color=black shape=ellipse]
-    1 [label="requests-oauthlib_minor, value>7.5" color=black shape=ellipse]
-    0 -> 1 [label=No]
-    2 [label="requests-oauthlib_minor, value>7.5" color=black shape=ellipse]
-    0 -> 2 [label=Yes]
-    3 [label="protobuf_micro, value>0.5" color=black shape=ellipse]
-    1 -> 3 [label=No]
-    4 [label="protobuf_micro, value>0.5" color=black shape=ellipse]
-    1 -> 4 [label=Yes]
-    5 [label="protobuf_micro, value>0.5" color=black shape=ellipse]
-    2 -> 5 [label=No]
-    6 [label="protobuf_micro, value>0.5" color=black shape=ellipse]
-    2 -> 6 [label=Yes]
-    7 [label="val = -0.070
+    node_0 [label="urllib3_minor, value>10.5" color=black shape=ellipse]
+    node_1 [label="chardet_minor, value>0.5" color=black shape=ellipse]
+    node_2 [label="chardet_minor, value>2.5" color=black shape=ellipse]
+    node_3 [label="markdown_minor, value>1.5" color=black shape=ellipse]
+    leaf_1 [label="val = -0.105
 " color=red shape=rect]
-    3 -> 7 [label=No]
-    8 [label="val = -0.072
+    node_3 -> leaf_1 [label=No]
+    leaf_2 [label="val = -0.085
 " color=red shape=rect]
-    3 -> 8 [label=Yes]
-    9 [label="val = 0.063
+    node_3 -> leaf_2 [label=Yes]
+    node_2 -> node_3 [label=No]
+    leaf_0 [label="val = 0.000
 " color=red shape=rect]
-    4 -> 9 [label=No]
-    10 [label="val = 0.000
+    node_2 -> leaf_0 [label=Yes]
+    node_1 -> node_2 [label=No]
+    node_6 [label="protobuf_minor, value>10.5" color=black shape=ellipse]
+    node_7 [label="tensorflow-estimator_minor, value>1.5" color=black shape=ellipse]
+    leaf_3 [label="val = -0.100
 " color=red shape=rect]
-    4 -> 10 [label=Yes]
-    11 [label="val = -0.009
+    node_7 -> leaf_3 [label=No]
+    leaf_4 [label="val = 0.000
 " color=red shape=rect]
-    5 -> 11 [label=No]
-    12 [label="val = -0.057
+    node_7 -> leaf_4 [label=Yes]
+    node_6 -> node_7 [label=No]
+    node_10 [label="mock_index, value=2" color=black shape=ellipse]
+    leaf_5 [label="val = 0.129
 " color=red shape=rect]
-    5 -> 12 [label=Yes]
-    13 [label="val = -0.034
+    node_10 -> leaf_5 [label=No]
+    leaf_6 [label="val = 0.000
 " color=red shape=rect]
-    6 -> 13 [label=No]
-    14 [label="val = -0.060
+    node_10 -> leaf_6 [label=Yes]
+    node_6 -> node_10 [label=Yes]
+    node_1 -> node_6 [label=Yes]
+    node_0 -> node_1 [label=No]
+    node_13 [label="werkzeug_micro, value>4.5" color=black shape=ellipse]
+    node_14 [label="six_minor, value>12.5" color=black shape=ellipse]
+    node_15 [label="tensorflow_major, value>1.5" color=black shape=ellipse]
+    leaf_7 [label="val = 0.000
 " color=red shape=rect]
-    6 -> 14 [label=Yes]
+    node_15 -> leaf_7 [label=No]
+    leaf_8 [label="val = -0.091
+" color=red shape=rect]
+    node_15 -> leaf_8 [label=Yes]
+    node_14 -> node_15 [label=No]
+    node_18 [label="pyparsing_micro, value>4.5" color=black shape=ellipse]
+    leaf_9 [label="val = -0.233
+" color=red shape=rect]
+    node_18 -> leaf_9 [label=No]
+    leaf_10 [label="val = -0.183
+" color=red shape=rect]
+    node_18 -> leaf_10 [label=Yes]
+    node_14 -> node_18 [label=Yes]
+    node_13 -> node_14 [label=No]
+    node_21 [label="tensorflow_minor, value>10.5" color=black shape=ellipse]
+    node_22 [label="tensorflow_micro, value>2.5" color=black shape=ellipse]
+    leaf_12 [label="val = -0.188
+" color=red shape=rect]
+    node_22 -> leaf_12 [label=No]
+    leaf_13 [label="val = 0.000
+" color=red shape=rect]
+    node_22 -> leaf_13 [label=Yes]
+    node_21 -> node_22 [label=No]
+    leaf_11 [label="val = 0.000
+" color=red shape=rect]
+    node_21 -> leaf_11 [label=Yes]
+    node_13 -> node_21 [label=Yes]
+    node_0 -> node_13 [label=Yes]
 }
