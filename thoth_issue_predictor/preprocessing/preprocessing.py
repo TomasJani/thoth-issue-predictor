@@ -1,9 +1,14 @@
 """Prepares achieved dataset into structure which is possible to process with model."""
 import logging
+from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 import pandas as pd
 from parver import Version
+from thoth.report_processing.components import AmunInspections
+
+from thoth_issue_predictor.preprocessing.config import DATASET_PATH, INSPECTIONS_PATH
+from thoth_issue_predictor.preprocessing.utils import extract_zip_file
 
 logger = logging.getLogger("thoth.report_processing.components.inspection")
 logger.setLevel(logging.ERROR)
@@ -12,12 +17,25 @@ logger.setLevel(logging.ERROR)
 class Preprocessing:
     """Implementation of preprocessing class for predictive model."""
 
-    def __init__(self, inspections_df: pd.DataFrame):
+    def __init__(self):
         """Initialize object attributes."""
-        self.inspections_df: pd.DataFrame = inspections_df
+        self.inspections_df: pd.DataFrame = None
         self.python_packages_versions: Dict[str, Any] = {"python": []}
         self.python_indexes: List[str] = ["unknown"]
         self.python_packages_names: List[str] = []
+
+    def prepare_df(
+        self, dataset_path: str = DATASET_PATH, inspections_path: str = INSPECTIONS_PATH
+    ) -> pd.DataFrame:
+        """Assemble dataframe with all data from inspections."""
+        extract_zip_file(dataset_path, inspections_path)
+        inspection_runs = self._aggregate_inspections()
+        processed_inspection_runs = self._process_inspections(inspection_runs)
+        inspections_df = AmunInspections().create_inspections_dataframe(
+            processed_inspection_runs=processed_inspection_runs,
+        )
+        self.inspections_df = inspections_df
+        return inspections_df
 
     def create_df(self) -> Tuple[pd.DataFrame, List[str]]:
         """Create DF for predicting build/runtime issues."""
@@ -32,6 +50,30 @@ class Preprocessing:
             pd.DataFrame(self.python_packages_versions),
             self.python_indexes,
         )
+
+    def _process_inspections(self, inspection_runs):
+        (
+            processed_inspection_runs,
+            failed_inspection_runs,
+        ) = AmunInspections().process_inspection_runs(
+            inspection_runs,
+        )
+        return {
+            **processed_inspection_runs,
+            **failed_inspection_runs,
+        }
+
+    def _aggregate_inspections(self):
+        current_path = Path.cwd()
+        inspection_runs = AmunInspections().aggregate_thoth_inspections_results(
+            is_local=True,
+            repo_path=current_path.joinpath("inspections"),
+            store_files=[
+                "specification",
+                "results",
+            ],
+        )
+        return inspection_runs
 
     def _add_python_version(self, row: Dict):
         """Add python version to dataframe."""

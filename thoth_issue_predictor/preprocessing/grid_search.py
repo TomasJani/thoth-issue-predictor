@@ -14,9 +14,8 @@ def grid_search_scikit(x, y):
         {
             "splitter": ["best", "random"],
             "max_depth": [3, 4, 5, 6],
-            "min_samples_split": [3, 5],
-            "min_samples_leaf": [3, 5],
-            "random_state": [10, 20, 50, 100],
+            "min_samples_split": [3, 5, 7, 9, 10, 15],
+            "min_samples_leaf": [3, 5, 7, 9, 10, 15],
         }
     ]
 
@@ -34,9 +33,10 @@ def grid_search_catboost(pool):
         "loss_function": "Logloss",
     }
     grid = {
+        "grow_policy": ["SymmetricTree", "Depthwise", "Lossguide"],
         "iterations": [1000, 2000],
         "depth": [3, 4, 5, 6],
-        "l2_leaf_reg": [3, 7, 15, 25],
+        "min_data_in_leaf": [3, 5, 7, 10],
     }
     model = CatBoostClassifier(**params)
     search_results = model.grid_search(grid, X=pool, verbose=False)

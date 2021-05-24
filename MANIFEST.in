@@ -4,11 +4,13 @@ include *.yaml
 include Makefile
 include Pipfile
 include Dockerfile
+recursive-include thoth_issue_predictor *.md
+recursive-include thoth_issue_predictor *.png
 recursive-include thoth_issue_predictor *.ipynb
 recursive-include thoth_issue_predictor *.json
 recursive-include thoth_issue_predictor *.py
 recursive-include thoth_issue_predictor *.zip
-recursive-include thoth_issue_predictor/notebooks/trees *
+recursive-include thoth_issue_predictor/notebooks/visualizations *
 recursive-include thoth_issue_predictor/loader/dm/specifications *
 recursive-include thoth_issue_predictor/loader/amun/specifications *
 

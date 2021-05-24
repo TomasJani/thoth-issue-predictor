@@ -2,7 +2,7 @@
 
 ![Lint](https://github.com/TomasJani/thoth-issue-predictor/workflows/CI/badge.svg)
 
-The goal of this thesis is to create a predictive model that can, based on data aggregated, spot patterns
+The goal of this [project](https://github.com/TomasJani/thoth-issue-predictor) is to create a predictive model that can, based on data aggregated, spot patterns
 causing issues in software stacks and predict which software stacks will likely not work without actually
 running the application. An example of an issue can be a specific version of TensorFlow installed together
 with a specific version of numpy that cause API incompatibility issues spotted on run time.
@@ -15,14 +15,21 @@ This project consist of four submodules:
  - evaluation
  - loader
 
-Each module contains README.md with brief description and manual for installing
-and starting.
+Each module contains README.md with brief description and manual.
 
-## Prerequisites
+## Dataset
 
-Docker with Docker buildkit.
+**Git LTS is required for downloading using git. Otherwise,
+the [dataset](https://github.com/TomasJani/thoth-issue-predictor/blob/main/thoth_issue_predictor/datasets/dataset.zip) needs to be downloaded manually.
+Move this archive file to `thoth_issue_predictor/dataset` folder.**
 
-Commands below work only if docker runs on root user.
+## Terminology
+
+ - **Software stack** is a group of packages working together to achieve a common goal.
+An example of a software stack is the package Tensorflow. Tensorflow contains a list
+of dependencies that need to be installed and functional so the Tensorflow can work.
+
+ - **Inspection** is resolved software stack.
 
 ## Run using Docker container
 
@@ -32,7 +39,7 @@ Docker with Docker buildkit.
 
 Commands below work only if docker runs on root user.
 
-### Docker build and run
+### Docker build
 
 ```bash
 export APP_NAME="thoth_issue_predictor"
@@ -49,6 +56,8 @@ DOCKER_BUILDKIT=1 docker build . \
        --ssh default
 ```
 
+### Docker run
+
 ```bash
 export APP_NAME="thoth_issue_predictor"
 export VCS_REF=$(git rev-parse HEAD)
@@ -62,6 +71,10 @@ docker run --net=host \
            jupyter lab
 ```
 
+Exploratory analysis is located in `thoth_issue_predictor/notebooks/InspectionsExploration.ipynb`
+
+Data preprocessing, training and evaluation is located in `thoth_issue_predictor/notebooks/ThothIssuePredictor.ipynb`
+
 ## Run development environment
 
 ### Prerequisites
@@ -74,4 +87,14 @@ Python, Graphwiz and Pipenv
 pipenv install
 ```
 
-### Lint & CI
+### Run jupyter lab server
+```bash
+pipenv run jupyter lab
+```
+
+### Linting
+
+Command for running all liters:
+```bash
+make lint
+```

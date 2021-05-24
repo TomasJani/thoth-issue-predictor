@@ -1,0 +1,39 @@
+digraph {
+    0 [label="pyasn1-modules_micro, value>1.5" color=black shape=ellipse]
+    1 [label="requests-oauthlib_minor, value>7.5" color=black shape=ellipse]
+    0 -> 1 [label=No]
+    2 [label="requests-oauthlib_minor, value>7.5" color=black shape=ellipse]
+    0 -> 2 [label=Yes]
+    3 [label="protobuf_micro, value>0.5" color=black shape=ellipse]
+    1 -> 3 [label=No]
+    4 [label="protobuf_micro, value>0.5" color=black shape=ellipse]
+    1 -> 4 [label=Yes]
+    5 [label="protobuf_micro, value>0.5" color=black shape=ellipse]
+    2 -> 5 [label=No]
+    6 [label="protobuf_micro, value>0.5" color=black shape=ellipse]
+    2 -> 6 [label=Yes]
+    7 [label="val = -0.070
+" color=red shape=rect]
+    3 -> 7 [label=No]
+    8 [label="val = -0.072
+" color=red shape=rect]
+    3 -> 8 [label=Yes]
+    9 [label="val = 0.063
+" color=red shape=rect]
+    4 -> 9 [label=No]
+    10 [label="val = 0.000
+" color=red shape=rect]
+    4 -> 10 [label=Yes]
+    11 [label="val = -0.009
+" color=red shape=rect]
+    5 -> 11 [label=No]
+    12 [label="val = -0.057
+" color=red shape=rect]
+    5 -> 12 [label=Yes]
+    13 [label="val = -0.034
+" color=red shape=rect]
+    6 -> 13 [label=No]
+    14 [label="val = -0.060
+" color=red shape=rect]
+    6 -> 14 [label=Yes]
+}

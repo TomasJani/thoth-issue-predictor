@@ -12,9 +12,9 @@ DM_API = "https://management.moc.thoth-station.ninja/api/v1/dependency-monkey/py
 DM_STATUS = "https://management.moc.thoth-station.ninja/api/v1/dependency-monkey/python/{id}/status"
 DM_RESULT = "https://management.moc.thoth-station.ninja/api/v1/dependency-monkey/python/{id}/report"
 
-SPECIFICATION_DIR = "/home/tjanicek/thesis/thoth-issue-predictor/thoth_issue_predictor/loader/amun/specifications/"
-OUTPUT_DIR = "/home/tjanicek/thesis/thoth-issue-predictor/thoth_issue_predictor/loader/amun/inspections"
-ID_DIR = (
+AMUN_SPECIFICATION_DIR = "/home/tjanicek/thesis/thoth-issue-predictor/thoth_issue_predictor/loader/amun/specifications/"
+AMUN_OUTPUT_DIR = "/home/tjanicek/thesis/thoth-issue-predictor/thoth_issue_predictor/loader/amun/inspections"
+AMUN_ID_DIR = (
     "/home/tjanicek/thesis/thoth-issue-predictor/thoth_issue_predictor/loader/amun/ids"
 )
 

@@ -7,11 +7,11 @@ from typing import Tuple
 from thoth_issue_predictor.loader.base_recover import BaseRecover
 from thoth_issue_predictor.loader.config import (
     AMUN_BATCH,
+    AMUN_ID_DIR,
+    AMUN_OUTPUT_DIR,
     AMUN_RESULT,
     AMUN_SPECS,
     AMUN_STATUS,
-    ID_DIR,
-    OUTPUT_DIR,
 )
 from thoth_issue_predictor.loader.status import Status
 from thoth_issue_predictor.loader.utils import get_parsed, write_to_file
@@ -23,8 +23,8 @@ class AmunRecover(BaseRecover):
     def __init__(self):
         """Initialize object attributes."""
         super().__init__(
-            inspections_path=OUTPUT_DIR,
-            ids_path=ID_DIR,
+            inspections_path=AMUN_OUTPUT_DIR,
+            ids_path=AMUN_ID_DIR,
             status_url=AMUN_STATUS,
             result_url=AMUN_RESULT,
         )

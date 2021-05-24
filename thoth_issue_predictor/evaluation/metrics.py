@@ -11,41 +11,36 @@ from thoth_issue_predictor.evaluation.model_evaluation import ModelEvaluation
 class Metrics:
     """Implementation of metrics handler class for ModelEvaluation."""
 
-    descending_metrics: List[str] = [
-        "accuracy_score",
-        "auc",
-        "f1_weighted",
-        "f1_micro",
-        "f1_macro",
-    ]
+    descending_metrics: List[str] = ["accuracy", "auc", "f1", "precision", "recall"]
 
     def __init__(self, models: List[ModelEvaluation]):
         """Initialize object attributes."""
         self.model_metrics: Dict[str, List] = {
             "train_time": [],
+            "prediction_time": [],
             "number_of_errors": [],
             "auc": [],
-            "accuracy_score": [],
-            "f1_weighted": [],
-            "f1_micro": [],
-            "f1_macro": [],
+            "accuracy": [],
+            "precision": [],
+            "recall": [],
+            "f1": [],
         }
         for model in models:
-            self.model_metrics["train_time"].append(
-                (model.model_name, model.train_time)
+            self._add_metric(model, "train_time")
+            self.model_metrics["prediction_time"].append(
+                (model.model_name, model.prediction_time)
             )
             self.model_metrics["number_of_errors"].append(
                 (model.model_name, model.number_of_errors)
             )
             self.model_metrics["auc"].append((model.model_name, model.auc))
-            self.model_metrics["accuracy_score"].append(
-                (model.model_name, model.accuracy_score)
-            )
-            self.model_metrics["f1_weighted"].append(
-                (model.model_name, model.f1_weighted)
-            )
-            self.model_metrics["f1_micro"].append((model.model_name, model.f1_micro))
-            self.model_metrics["f1_macro"].append((model.model_name, model.f1_macro))
+            self.model_metrics["accuracy"].append((model.model_name, model.accuracy))
+            self.model_metrics["precision"].append((model.model_name, model.precision))
+            self.model_metrics["recall"].append((model.model_name, model.precision))
+            self.model_metrics["f1"].append((model.model_name, model.f1))
+
+    def _add_metric(self, model, metric):
+        self.model_metrics[metric].append((model.model_name, getattr(model, metric)))
 
     def sort_metrics(self):
         """Sort saved metrics."""
@@ -67,7 +62,7 @@ class Metrics:
         """Crate and display graph to compare saved models."""
         x_metric = [model_metric[0] for model_metric in self.model_metrics[metric]]
 
-        if metric == "train_time":
+        if metric in ["train_time", "prediction_time"]:
             y_metric = [
                 model_metric[1].microseconds
                 for model_metric in self.model_metrics[metric]
